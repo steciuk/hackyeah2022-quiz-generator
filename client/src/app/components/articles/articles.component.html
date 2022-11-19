@@ -1,0 +1,10 @@
+<div>
+  <label for="name">Query: </label>
+  <input id="query" type="text" [formControl]="query" />
+  <button type="button" (click)="search()">Search</button>
+</div>
+
+<app-article-card
+  *ngFor="let article of articles"
+  [article]="article"
+></app-article-card>
