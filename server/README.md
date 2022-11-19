@@ -71,3 +71,12 @@ python -m pytest
 ```
 python3 -m pytest
 ```
+
+## Start FastAPI server
+
+### macOS
+
+```
+-m uvicorn server:app --reload
+```
+
