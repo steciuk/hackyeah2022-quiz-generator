@@ -53,7 +53,7 @@ def generator():
 
     generator = QuestionGenerator()
     result = generator.generate(
-        article=text, answer_style="multiple_choice", num_questions=10)
+        article=text, answer_style="multiple_choice", num_questions=30)
 
     for obj in result:
         print(obj['question'])
