@@ -1,15 +1,28 @@
-<div class="h-screen flex justify-center items-center mx-auto" style="width: 600px;">
+<div
+  class="h-screen flex justify-center items-center mx-auto"
+  style="width: 600px"
+>
   <div class="flex flex-col gap-3 w-full">
-    <input class="py-2 px-4 border rounded" type="email" placeholder="Email" #userEmail required/>
-    <input class="py-2 px-4 border rounded" type="password" placeholder="Password" #userPwd required/>
-    <input class="py-2 px-4 border rounded"
-      type="button"
-      value="Sign Up"
-      (click)="authService.SignUp(userEmail.value, userPwd.value)"
+    <input
+      class="py-2 px-4 border rounded"
+      type="email"
+      placeholder="Email"
+      #userEmail
+      required
     />
-    <app-button type="button" (click)="authService.GoogleAuth()">
+    <input
+      class="py-2 px-4 border rounded"
+      type="password"
+      placeholder="Password"
+      #userPwd
+      required
+    />
+    <app-button (click)="authService.SignUp(userEmail.value, userPwd.value)">
+      Sign Up
+    </app-button>
+    <app-button (click)="authService.GoogleAuth()">
       Continue with Google
     </app-button>
-    <app-button routerLink="/sign-in">Log In</app-button>
+    <app-button routerLink="/sign-in">Go to Sign In</app-button>
   </div>
 </div>
