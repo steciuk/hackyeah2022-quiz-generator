@@ -5,15 +5,20 @@
       Generate
     </app-button>
   </div>
-  <div class="grow flex justify-end items-center">
+  <div class="grow flex justify-end items-center gap-3">
+    <img
+      src="assets/contrast-icon.png"
+      alt="contrast-icon"
+      class="contrast-icon"
+      width="45"
+      [attr.class]="inverted ? 'inverted' : ''"
+      (click)="contrastService.toggleContrast()"
+    />
+
     <app-button *ngIf="!authService.isLoggedIn" routerLink="/sign-in">
       Sign In
     </app-button>
-    <div
-      *ngIf="authService.isLoggedIn"
-      class="dashboard-link"
-      routerLink="/dashboard"
-    >
+    <div *ngIf="authService.isLoggedIn" routerLink="/dashboard">
       <app-user-image [size]="40" class="cursor-pointer"></app-user-image>
     </div>
   </div>
