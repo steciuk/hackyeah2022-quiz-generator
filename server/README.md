@@ -77,6 +77,6 @@ python3 -m pytest
 ### macOS
 
 ```
--m uvicorn server:app --reload
+python3 -m uvicorn server:app --reload
 ```
 

@@ -1,61 +1,43 @@
 from fpdf import FPDF
+import pdfkit
 
 from generator import Question
 
 
-class QuizPdfBuilder(FPDF):
-    def addTitle(self, title):
-        title = title.encode('latin-1', 'replace').decode('latin-1')
-        # Arial bold 15
-        self.set_font('Arial', 'B', 15)
+class QuizPdfBuilder():
+    title: str
+    sourceUrl: str
+    questions: list[Question]
 
-        # Calculate width of title and position
-        w = self.get_string_width(title) + 6
-        self.set_x((210 - w) / 2)
+    def __init__(self, title: str, sourceUrl: str, questions: list[Question]):
+        self.title = title
+        self.sourceUrl = sourceUrl
+        self.questions = questions
 
-        # # Colors of frame, background and text
-        # self.set_draw_color(0, 80, 180)
-        # self.set_fill_color(230, 230, 0)
-        # self.set_text_color(220, 50, 50)
-        # # Thickness of frame (1 mm)
-        # self.set_line_width(1)
+    def build(self):
+        questionsHtml:str = ""
 
-        # Title
-        self.cell(w, 9, title, 1, 1, 'C', 1)
-        # Line break
-        self.ln(10)
+        for question in self.questions:
+            answersHtml = ""
+            for answerKey in question.answers.keys():
+                answersHtml += f"<li>{answerKey}</li>"
+            answersHtml = f"<ol>{answersHtml}</ol>"
 
-    def addQuestionTitle(self, title):
-        title = title.encode('latin-1', 'replace').decode('latin-1')
+            questionsHtml += f"<h3>{question.question}</h3>"
+            questionsHtml += answersHtml
 
-        # Arial 12
-        self.set_font('Arial', '', 12)
-
-        # Background color
-        # self.set_fill_color(200, 220, 255)
-
-        # Title
-        self.cell(0, 6, title, 0, 1, 'L', 1)
-        # Line break
-        self.ln(4)
-
-    def addQuestionAnswers(self, question: Question):
-        # # Read text file
-        # with open(name, 'rb') as fh:
-        #     txt = fh.read().decode('latin-1')
-
-        # Times 12
-        self.set_font('Times', '', 12)
-
-        for index, (answer, isCorrect) in enumerate(question.answers.items()):
-            answer = answer.encode('latin-1', 'replace').decode('latin-1')
-
-            formattedAnswer = f"{index + 1}) {answer}"
-            # Output justified text
-            self.multi_cell(0, 5, formattedAnswer)
-            # Line break
-            self.ln()
-
-        # Mention in italics
-        # self.set_font('', 'I')
-        # self.cell(0, 5, '(end of excerpt)')
+        html = f"""
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <title>{self.title}</title>
+                        <style>{""}</style>
+                    </head>
+                    <body class="markdown-body">
+                        <h1>{self.title}</h1>
+                        <a href="{self.sourceUrl}">{self.sourceUrl}</a>
+                        {questionsHtml}
+                    </body>
+                    </html>
+                    """
+        return pdfkit.from_string(html, False)

@@ -14,29 +14,29 @@ class Question:
 
 
 def generateQuestions(text: str) -> list[Question]:
-    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    # print(f"Using device: {device}")
-    # print(f"generating ...")
-    #
-    # result = generator.generate(
-    #     article=text, answer_style="multiple_choice", num_questions=5)
-    #
-    # questions: list[Question] = []
-    # for obj in result:
-    #     question = obj['question']
-    #     answers: dict[str, bool] = {}
-    #
-    #     for answer in obj['answer']:
-    #         ans: str = answer['answer']
-    #         isCorrect: bool = answer['correct']
-    #         answers[ans] = isCorrect
-    #
-    #     questionDTO = Question(question, answers)
-    #     questions.append(questionDTO)
-    #
-    # print(f"finished generating.")
-    # return questions
-    return dummyGeneratedQuestions
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Using device: {device}")
+    print(f"generating ...")
+
+    result = generator.generate(
+        article=text, answer_style="multiple_choice", num_questions=5)
+
+    questions: list[Question] = []
+    for obj in result:
+        question = obj['question']
+        answers: dict[str, bool] = {}
+
+        for answer in obj['answer']:
+            ans: str = answer['answer']
+            isCorrect: bool = answer['correct']
+            answers[ans] = isCorrect
+
+        questionDTO = Question(question, answers)
+        questions.append(questionDTO)
+
+    print(f"finished generating.")
+    return questions
+    # return dummyGeneratedQuestions
 
 dummyGeneratedQuestions: list[Question] = [
     Question('first question', {

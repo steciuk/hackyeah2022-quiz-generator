@@ -13,11 +13,6 @@ from pydantic.main import BaseModel
 from generator import generateQuestions
 from quizPdfBuilder import QuizPdfBuilder
 
-# TODO
-# Remove whitespace from models
-#
-# generate PDF
-
 app = FastAPI()
 
 
@@ -46,7 +41,6 @@ app.add_middleware(
 )
 
 
-
 @app.post("/generate")
 def generateQuiz(req: GeneratePdfQuizRequest):
     text = None
@@ -58,23 +52,10 @@ def generateQuiz(req: GeneratePdfQuizRequest):
 
     generatedQuestions = generateQuestions(text)
 
-    pdfPath = f'static/ipn_quiz.pdf'
-
-    pdf = QuizPdfBuilder()
-    pdf.add_page()
-    pdf.addTitle(req.title)
-    for question in generatedQuestions:
-        pdf.addQuestionTitle(question.question)
-        pdf.addQuestionAnswers(question)
-
-    output = pdf.output(pdfPath, 'S')
-    response = Response(
-        content=output,
-        media_type="application/pdf; charset=latin-1",
-        # media_type="application/pdf",
-        headers={
-            'Content-Disposition': 'attachment; filename="ipn-quiz.pdf"'
-        })
+    pdf = QuizPdfBuilder(req.title, req.sourceUrl, generatedQuestions).build()
+    filename = "quiz-ipn.pdf"
+    headers = {'Content-Disposition': 'attachment; filename="' + filename + '"'}
+    response = Response(content=pdf, media_type='application/pdf', headers=headers)
     return response
 
 
