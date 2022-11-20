@@ -1,8 +1,0 @@
-### Send POST request with json body
-POST http://127.0.0.1:8000/generate
-Content-Type: application/json
-
-{
-  "sourceUrl": "https://en.truthaboutcamps.eu/thn/it-began-in-the-third-r/15595,Concentration-Camps-in-Germany-19331945.html",
-  "title": "Concentration Camps in Germany 1933−1945 - It Began in the Third Reich -  Truth About Camps | W imię prawdy historycznej (en)"
-}
