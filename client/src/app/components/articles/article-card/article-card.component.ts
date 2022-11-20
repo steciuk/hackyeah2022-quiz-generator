@@ -25,4 +25,9 @@ export class ArticleCardComponent extends BaseComponent implements OnInit {
 
     this.subs.sink = this.generateService
       .generate(this.article.url, this.article.title)
-      .sub
+      .subscribe(() => {
+        this.isLoading = false;
+        console.log('Generated');
+      });
+  }
+}
