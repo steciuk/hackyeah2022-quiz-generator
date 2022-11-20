@@ -13,13 +13,13 @@ class Question:
         self.answers = answers
 
 
-def generateQuestions(text: str) -> list[Question]:
+def generateQuestions(text: str, num_questions) -> list[Question]:
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
     print(f"generating ...")
 
     result = generator.generate(
-        article=text, answer_style="multiple_choice", num_questions=5)
+        article=text, answer_style="multiple_choice", num_questions=num_questions)
 
     questions: list[Question] = []
     for obj in result:

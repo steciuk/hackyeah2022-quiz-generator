@@ -15,12 +15,12 @@ class QuizPdfBuilder():
         self.questions = questions
 
     def build(self):
-        questionsHtml:str = ""
+        questionsHtml: str = ""
 
         for question in self.questions:
             answersHtml = ""
-            for answerKey in question.answers.keys():
-                answersHtml += f"<li>{answerKey}</li>"
+            for answerKey, isCorrect in question.answers.items():
+                answersHtml += f"<li>{answerKey} {' (Correct)' if isCorrect else ''}</li>"
             answersHtml = f"<ol>{answersHtml}</ol>"
 
             questionsHtml += f"<h3>{question.question}</h3>"
@@ -31,7 +31,7 @@ class QuizPdfBuilder():
                     <head>
                         <meta charset="utf-8">
                         <title>{self.title}</title>
-                        <style>{""}</style>
+                        <style></style>
                     </head>
                     <body class="markdown-body">
                         <h1>{self.title}</h1>

@@ -1,13 +1,12 @@
 <div class="flex flex-col gap-3">
   <div class="flex justify-center items-center gap-3 m-10 border p-4 rounded">
     <label for="query">Query: </label>
-    <input class="py-2 px-4 border rounded" id="query" type="text" [formControl]="query" />
-    <app-button type="button" (click)="search()">Search</app-button>
+    <input #inputRef class="py-2 px-4 border rounded" id="query" type="text" [formControl]="query" />
+    <app-button type="button"
+      [disabled]="inputRef.value.length < 2" (click)="inputRef.value.length < 2 ? null : search()">Search
+    </app-button>
   </div>
   <div>
-    <app-article-card
-      *ngFor="let article of articles"
-      [article]="article"
-    ></app-article-card>
+    <app-article-card *ngFor="let article of articles" [article]="article"></app-article-card>
   </div>
 </div>

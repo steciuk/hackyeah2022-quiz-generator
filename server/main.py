@@ -19,6 +19,7 @@ app = FastAPI()
 class GeneratePdfQuizRequest(BaseModel):
     sourceUrl: str
     title: str
+    num_pages: int | None
 
 
 class Article:
@@ -50,7 +51,7 @@ def generateQuiz(req: GeneratePdfQuizRequest):
     else:
         text = queryIPNSourceFromWebsite(req.sourceUrl)
 
-    generatedQuestions = generateQuestions(text)
+    generatedQuestions = generateQuestions(text, req.num_pages if req.num_pages else 10)
 
     pdf = QuizPdfBuilder(req.title, req.sourceUrl, generatedQuestions).build()
     filename = "quiz-ipn.pdf"
@@ -64,7 +65,8 @@ def searchIPNArticles(query: str, q: Union[str, None] = None):
     request_url: str = RequestBuilder(query).build()
     response = requests.get(request_url)
     searchResults = parseIPNResults(response)
-    encodedResults = jsonable_encoder(searchResults)
+    onlyHtmlResults = list(filter(lambda r: (r.url.endswith(".html")), searchResults))
+    encodedResults = jsonable_encoder(onlyHtmlResults)
     return JSONResponse(content=encodedResults)
 
 
