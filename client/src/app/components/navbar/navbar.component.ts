@@ -1,6 +1,7 @@
 import { BaseComponent } from 'src/app/components/base.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ContrastService } from 'src/app/services/contrast.service';
+import { TextSizeService } from 'src/app/services/text-size.service';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -19,6 +20,7 @@ export class NavbarComponent extends BaseComponent implements OnInit {
   constructor(
     public readonly authService: AuthService,
     public readonly contrastService: ContrastService,
+    public readonly textSizeService: TextSizeService,
     private readonly router: Router
   ) {
     super();

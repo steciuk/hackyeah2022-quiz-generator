@@ -7,6 +7,14 @@
   </div>
   <div class="grow flex justify-end items-center gap-3">
     <img
+      src="assets/text-size-icon.png"
+      alt="text-size-icon"
+      class="contrast-icon"
+      width="45"
+      [attr.class]="inverted ? 'inverted' : ''"
+      (click)="textSizeService.toggleTextSize()"
+    />
+    <img
       src="assets/contrast-icon.png"
       alt="contrast-icon"
       class="contrast-icon"
