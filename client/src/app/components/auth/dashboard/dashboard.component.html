@@ -1,0 +1,21 @@
+<div>
+  <div *ngIf="authService.userData as user">
+    <app-user-image [size]="100"></app-user-image>
+    <div>
+      <h1>
+        Hello:
+        <strong>{{ user.displayName ? user.displayName : user.email }}</strong>
+      </h1>
+      <p>
+        User ID: <strong>{{ user.uid }}</strong>
+      </p>
+      <p>
+        Email: <strong>{{ user.email }}</strong>
+      </p>
+      <p>
+        Email Verified: <strong>{{ user.emailVerified }}</strong>
+      </p>
+    </div>
+    <button (click)="authService.SignOut()">Log out</button>
+  </div>
+</div>

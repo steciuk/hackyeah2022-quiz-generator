@@ -1,0 +1,31 @@
+<div class="auth-body">
+  <div>
+    <h3>Sign Up</h3>
+    <div>
+      <input type="email" placeholder="Email" #userEmail required />
+    </div>
+    <div>
+      <input type="password" placeholder="Password" #userPwd required />
+    </div>
+    <div>
+      <input
+        type="button"
+        value="Sign Up"
+        (click)="authService.SignUp(userEmail.value, userPwd.value)"
+      />
+    </div>
+    <div>Or</div>
+
+    <div>
+      <button type="button" (click)="authService.GoogleAuth()">
+        Continue with Google
+      </button>
+    </div>
+  </div>
+  <div class="bottom">
+    <div>
+      Already have an account?
+      <a routerLink="/sign-in">Log In</a>
+    </div>
+  </div>
+</div>

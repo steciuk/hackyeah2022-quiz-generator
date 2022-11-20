@@ -1,3 +1,4 @@
+import { BaseComponent } from 'src/app/components/base.component';
 import { Article } from 'src/app/model/Article';
 import { GenerateService } from 'src/app/services/generate.service';
 
@@ -8,15 +9,17 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './article-card.component.html',
   styleUrls: ['./article-card.component.scss'],
 })
-export class ArticleCardComponent implements OnInit {
+export class ArticleCardComponent extends BaseComponent implements OnInit {
   @Input() article!: Article;
 
-  constructor(private readonly generateService: GenerateService) {}
+  constructor(private readonly generateService: GenerateService) {
+    super();
+  }
 
   ngOnInit(): void {}
 
   generate() {
-    this.generateService
+    this.subs.sink = this.generateService
       .generate(this.article.url, this.article.title)
       .subscribe(() => {
         console.log('Generated');

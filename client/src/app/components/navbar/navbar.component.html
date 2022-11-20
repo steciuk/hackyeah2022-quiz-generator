@@ -1,0 +1,26 @@
+<nav class="nav">
+  <ul class="nav-left">
+    <li *ngFor="let route of navRoutes; let i = index">
+      <button routerLink="{{ '/' + route }}">{{ navLabels[i] }}</button>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <button *ngIf="!authService.isLoggedIn" routerLink="/sign-in">
+      Sign In
+    </button>
+    <div
+      *ngIf="authService.isLoggedIn"
+      class="dashboard-link"
+      routerLink="/dashboard"
+    >
+      <app-user-image [size]="30"></app-user-image>
+      <span>
+        {{
+          authService.userData.displayName
+            ? authService.userData.displayName
+            : authService.userData.email
+        }}
+      </span>
+    </div>
+  </div>
+</nav>

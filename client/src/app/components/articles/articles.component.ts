@@ -1,3 +1,4 @@
+import { BaseComponent } from 'src/app/components/base.component';
 import { Article } from 'src/app/model/Article';
 import { ArticleService } from 'src/app/services/article.service';
 
@@ -9,17 +10,21 @@ import { FormControl } from '@angular/forms';
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss'],
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesComponent extends BaseComponent implements OnInit {
   query = new FormControl('');
   articles: Article[] = [];
 
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(private readonly articleService: ArticleService) {
+    super();
+  }
 
   ngOnInit(): void {}
 
   search() {
-    this.articleService.getArticles(this.query.value).subscribe((articles) => {
-      this.articles = articles;
-    });
+    this.subs.sink = this.articleService
+      .getArticles(this.query.value)
+      .subscribe((articles) => {
+        this.articles = articles;
+      });
   }
 }

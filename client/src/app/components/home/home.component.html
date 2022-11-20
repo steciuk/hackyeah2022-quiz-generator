@@ -1,0 +1,7 @@
+<div class="main-body">
+  <h1>QUESTION GENERATOR</h1>
+  <button *ngIf="!authService.isLoggedIn" routerLink="/sign-in">Sign In</button>
+  <button *ngIf="authService.isLoggedIn" routerLink="/articles">
+    Generate
+  </button>
+</div>

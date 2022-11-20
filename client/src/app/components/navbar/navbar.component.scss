@@ -1,0 +1,17 @@
+.nav {
+  height: 2rem;
+}
+
+.nav-right {
+  float: right;
+}
+
+.nav-left {
+  float: left;
+}
+
+.dashboard-link {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
