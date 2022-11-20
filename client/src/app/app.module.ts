@@ -23,6 +23,7 @@ import { VerifyEmailComponent } from './components/auth/verify-email/verify-emai
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserImageComponent } from './components/user-image/user-image.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UserImageComponent } from './components/user-image/user-image.component
     NavbarComponent,
     HomeComponent,
     UserImageComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserModule,

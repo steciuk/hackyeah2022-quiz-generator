@@ -1,7 +1,10 @@
-<div class="main-body">
-  <h1>QUESTION GENERATOR</h1>
-  <button *ngIf="!authService.isLoggedIn" routerLink="/sign-in">Sign In</button>
-  <button *ngIf="authService.isLoggedIn" routerLink="/articles">
+<div class="flex flex-col h-screen flex-column justify-center items-center">
+  <img src="./assets/13233937_5178220.jpg" style="width: 400px" alt="">
+  <h1 class="text-4xl my-5">QUESTION GENERATOR</h1>
+  <p *ngIf="!authService.isLoggedIn" routerLink="/sign-in">
+    You are not signed in
+  </p>
+  <app-button *ngIf="authService.isLoggedIn" routerLink="/articles">
     Generate
-  </button>
+  </app-button>
 </div>
