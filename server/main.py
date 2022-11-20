@@ -4,6 +4,9 @@ from urllib.parse import urlencode, urljoin
 import requests
 from bs4 import BeautifulSoup
 from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.responses import Response
 from pydantic.main import BaseModel
 
@@ -34,6 +37,16 @@ class Article:
         self.description = description
 
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+
 @app.post("/generate")
 def generateQuiz(req: GeneratePdfQuizRequest):
     text = None
@@ -57,7 +70,8 @@ def generateQuiz(req: GeneratePdfQuizRequest):
     output = pdf.output(pdfPath, 'S')
     response = Response(
         content=output,
-        media_type="application/pdf",
+        media_type="application/pdf; charset=latin-1",
+        # media_type="application/pdf",
         headers={
             'Content-Disposition': 'attachment; filename="ipn-quiz.pdf"'
         })
@@ -65,11 +79,12 @@ def generateQuiz(req: GeneratePdfQuizRequest):
 
 
 @app.get("/search/{query}")
-def searchIPNArticles(query: str, q: Union[str, None] = None) -> list[Article]:
+def searchIPNArticles(query: str, q: Union[str, None] = None):
     request_url: str = RequestBuilder(query).build()
     response = requests.get(request_url)
     searchResults = parseIPNResults(response)
-    return searchResults
+    encodedResults = jsonable_encoder(searchResults)
+    return JSONResponse(content=encodedResults)
 
 
 def queryIPNSourceFromWebsite(url: str) -> str:
