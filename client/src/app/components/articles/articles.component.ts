@@ -12,6 +12,8 @@ import { FormControl } from '@angular/forms';
 })
 export class ArticlesComponent extends BaseComponent implements OnInit {
   query = new FormControl('');
+  numQuestions = new FormControl(10);
+
   articles: Article[] = [];
 
   constructor(private readonly articleService: ArticleService) {
@@ -26,5 +28,13 @@ export class ArticlesComponent extends BaseComponent implements OnInit {
       .subscribe((articles) => {
         this.articles = articles;
       });
+  }
+
+  searchEnabled() {
+    return (
+      this.query.value.length >= 2 &&
+      this.numQuestions.value > 1 &&
+      this.numQuestions.value < 30
+    );
   }
 }
