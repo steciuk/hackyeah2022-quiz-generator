@@ -1,9 +1,10 @@
 <nav class="p-4 flex">
-  <ul>
-    <li *ngFor="let route of navRoutes; let i = index">
-      <app-button routerLink="{{ '/' + route }}">{{ navLabels[i] }}</app-button>
-    </li>
-  </ul>
+  <div class="flex gap-1">
+    <app-button routerLink="">Home</app-button>
+    <app-button [disabled]="!authService.isLoggedIn" (click)="goToArticles()">
+      Generate
+    </app-button>
+  </div>
   <div class="grow flex justify-end items-center">
     <app-button *ngIf="!authService.isLoggedIn" routerLink="/sign-in">
       Sign In
@@ -13,14 +14,7 @@
       class="dashboard-link"
       routerLink="/dashboard"
     >
-      <app-user-image [size]="30" class="mr-3"></app-user-image>
-      <span>
-        {{
-          authService.userData.displayName
-            ? authService.userData.displayName
-            : authService.userData.email
-        }}
-      </span>
+      <app-user-image [size]="40" class="cursor-pointer"></app-user-image>
     </div>
   </div>
 </nav>
