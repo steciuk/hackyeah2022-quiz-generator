@@ -23,7 +23,7 @@ export class ButtonComponent extends BaseComponent implements OnInit {
       (isHighContrast) => {
         if (isHighContrast) {
           this.activeColorClass = 'bg-yellow-400';
-          this.disabledColorClass = 'bg-yellow-200';
+          this.disabledColorClass = 'bg-gray-400';
         } else {
           this.activeColorClass = 'bg-blue-100';
           this.disabledColorClass = 'bg-gray-100';
