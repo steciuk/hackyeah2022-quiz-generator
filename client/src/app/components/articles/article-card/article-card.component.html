@@ -1,4 +1,4 @@
-<div class="article-card flex items-center m-10 border rounded hover:bg-gray-100" (click)="generate()">
+<div class="article-card flex items-center m-10 border rounded hover:bg-gray-100" [ngClass]="highContrastColorClass" (click)="generate()">
       <div>
         <h3 class="font-bold">{{ article.title }}</h3>
         <p style="font-size: 0.8rem">{{ article.description }}</p>
